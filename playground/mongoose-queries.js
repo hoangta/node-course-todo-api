@@ -29,7 +29,7 @@ const {User} = require('./../server/models/user')
 
 var id = '5b79a3f12b4f118ac8c489ad'
 
-User.findById(id, 'email').then((user) => {
+User.findById(id).then((user) => {
     if (!user) {
         return console.log('User not found!')
     }
