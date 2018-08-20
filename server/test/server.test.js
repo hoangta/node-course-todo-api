@@ -147,6 +147,7 @@ describe('PATCH /todo:id', () => {
             .send(newTodo)
             .expect(200)
             .expect((res) => {
+                console.log(res.body.text)
                 expect(res.body.text).toEqual(newTodo.text)
                 expect(res.body.completed).toBe(true)
                 expect(typeof res.body.completedAt).toBe('number')
@@ -157,7 +158,7 @@ describe('PATCH /todo:id', () => {
     it('should clear completedAt when todo is not completed', (finished) => {
         let id = todos[1]._id.toHexString()
         let newTodo = {
-            text: 'Second test todo updated',
+            text: 'Second test todo updated!',
             completed: false
         }
         request(app)
