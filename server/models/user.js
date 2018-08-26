@@ -40,7 +40,7 @@ UserSchema.methods.toJSON = function() {
 UserSchema.methods.generateAuthToken = function() {
     let user = this
     let access = 'auth'
-    let token = jwt.sign({_id: this._id.toHexString(), access}, 'pppsecret')
+    let token = jwt.sign({_id: this._id.toHexString(), access}, process.env.JWT_SECRET)
     user.tokens.push({access, token})
     return user.save().then(() => {
         return token
@@ -61,7 +61,7 @@ UserSchema.statics.findByToken = function(token) {
     let decoded
 
     try {
-        decoded = jwt.verify(token, 'pppsecret')
+        decoded = jwt.verify(token, process.env.JWT_SECRET)
     } catch (e) {
         return Promise.reject()
     }
